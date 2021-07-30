@@ -4,6 +4,9 @@ GET http://localhost:3000/
 ### json
 GET http://localhost:3000/json
 
+### user json
+GET http://localhost:3000/user/2
+
 ### static html
 GET http://localhost:3000/index.html
 
