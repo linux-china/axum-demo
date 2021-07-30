@@ -10,6 +10,14 @@ Axum: an easy to use, yet powerful, web framework designed to take full advantag
 * json output: struct and json!() macro
 * Path variable `/user/:id`
 
+# Docker support
+Refer from  [Packaging a Rust web service using Docker](https://blog.logrocket.com/packaging-a-rust-web-service-using-docker/) 
+
+```bash
+docker build -t axum-demo .
+docker run -p 3000:3000 axum-demo
+```
+
 # References
 
 * Axum home: https://github.com/tokio-rs/axum
