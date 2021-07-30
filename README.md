@@ -3,6 +3,13 @@ Axum demo
 
 Axum: an easy to use, yet powerful, web framework designed to take full advantage of the Tokio ecosystem
 
+# Features
+
+* static assets handle
+* index page
+* json output: struct and json!() macro
+* Path variable `/user/:id`
+
 # References
 
 * Axum home: https://github.com/tokio-rs/axum
