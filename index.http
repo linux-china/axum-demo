@@ -1,0 +1,12 @@
+### Welcome page
+GET http://localhost:3000/
+
+### json
+GET http://localhost:3000/json
+
+### static html
+GET http://localhost:3000/index.html
+
+### static css
+GET http://localhost:3000/assets/demo.css
+
