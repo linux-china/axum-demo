@@ -1,5 +1,4 @@
 use axum::prelude::*;
-use std::net::SocketAddr;
 use http::StatusCode;
 use axum::response::{Html, Json};
 use axum::{extract::{UrlParams}, routing::nest, service::ServiceExt};
@@ -20,8 +19,7 @@ async fn main() {
         .route("/user/:id", get(user))
         .route("/json", get(json));
 
-    let address = SocketAddr::from(([0, 0, 0, 0], 3000));
-    hyper::Server::bind(&address)
+    hyper::Server::bind(&"0.0.0.0:3000".parse().unwrap())
         .serve(app.into_make_service())
         .await
         .unwrap();
