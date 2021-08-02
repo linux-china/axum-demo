@@ -1,9 +1,8 @@
 ### Welcome page
 GET http://localhost:3000/
 
-### json
+### json output
 GET http://localhost:3000/json
-
 
 ### user login form
 POST http://localhost:3000/login
@@ -22,6 +21,9 @@ Content-Type: application/json
   "id": 111,
   "name": "Tevita Solares"
 }
+
+### search
+GET http://localhost:3000/search?q=java
 
 ### static html
 GET http://localhost:3000/index.html
