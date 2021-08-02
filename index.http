@@ -4,6 +4,13 @@ GET http://localhost:3000/
 ### json
 GET http://localhost:3000/json
 
+
+### user login form
+POST http://localhost:3000/login
+Content-Type: application/x-www-form-urlencoded
+
+username=leijuan&password=123456
+
 ### user json
 GET http://localhost:3000/user/2
 
