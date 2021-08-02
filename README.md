@@ -38,8 +38,11 @@ http: a general purpose library of common HTTP types, for examples `http::{Reque
 
 * static assets handle
 * index page
+* form submit: login
+* json submit: REST API
 * json output: struct and json!() macro
-* Path variable `/user/:id`
+* query:  `/search?q=java`
+* Path variables/params `/user/:id`
 
 # Docker support
 Refer from  [Packaging a Rust web service using Docker](https://blog.logrocket.com/packaging-a-rust-web-service-using-docker/) 
