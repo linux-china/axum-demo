@@ -19,8 +19,10 @@ async fn main() {
         .route("/login", post(login))
         .route("/user/:id", get(user))
         .route("/user/save", post(save_user))
+        .route("/search", get(search))
         .route("/json", get(json));
 
+    println!("Http Server started on 0.0.0.0:3000");
     hyper::Server::bind(&"0.0.0.0:3000".parse().unwrap())
         .serve(app.into_make_service())
         .await
@@ -65,5 +67,17 @@ async fn json() -> Json<Value> {
 
 async fn user(UrlParams((id, )): UrlParams<(u32, )>) -> Json<Person> {
     Json(Person { id, name: "linux_china".to_string() })
+}
+
+#[derive(Deserialize)]
+struct SearchQuery {
+    page: Option<u32>,
+    q: Option<String>,
+}
+
+async fn search(extract::Query(query): extract::Query<SearchQuery>) -> Html<String> {
+    let q = query.q.unwrap_or("".to_string());
+    print!("q: {}, page: {}", q, query.page.unwrap_or(0));
+    Html(format!("<h1>Hello, {}!</h1>", q))
 }
 
