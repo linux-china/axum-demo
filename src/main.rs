@@ -17,6 +17,7 @@ async fn main() {
         .route("/", get(index))
         .route("/html", get(html))
         .route("/user/:id", get(user))
+        .route("/user/save", post(save_user))
         .route("/json", get(json));
 
     hyper::Server::bind(&"0.0.0.0:3000".parse().unwrap())
@@ -32,6 +33,11 @@ async fn index() -> Html<&'static str> {
 // `Html` gives a content-type of `text/html`
 async fn html() -> Html<&'static str> {
     Html("<h1>Hello, World!</h1>")
+}
+
+async fn save_user(extract::Json(user): extract::Json<Person>) -> Json<Value> {
+    println!("name: {}", user.name);
+    Json(json!(true))
 }
 
 #[derive(Serialize, Deserialize, Debug)]
