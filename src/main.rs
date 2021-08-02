@@ -16,6 +16,7 @@ async fn main() {
     let app = nest("/", axum::service::get(static_handle))
         .route("/", get(index))
         .route("/html", get(html))
+        .route("/login", post(login))
         .route("/user/:id", get(user))
         .route("/user/save", post(save_user))
         .route("/json", get(json));
@@ -38,6 +39,18 @@ async fn html() -> Html<&'static str> {
 async fn save_user(extract::Json(user): extract::Json<Person>) -> Json<Value> {
     println!("name: {}", user.name);
     Json(json!(true))
+}
+
+
+#[derive(Deserialize)]
+struct LoginForm {
+    username: String,
+    password: String,
+}
+
+async fn login(extract::Form(form): extract::Form<LoginForm>) -> Html<String> {
+    println!("username: {}, password: {}", form.username, form.password);
+    Html(format!("<h1>Hello, {}!</h1>", &form.username))
 }
 
 #[derive(Serialize, Deserialize, Debug)]
