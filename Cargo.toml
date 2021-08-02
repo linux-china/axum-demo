@@ -17,3 +17,4 @@ hyper = { version = "0.14", features = ["full"] }
 tower = { version = "0.4", features = ["full"] }
 tower-http = { version = "0.1", features = ["full"] }
 axum = { version = "0.1", features = ["ws", "multipart"] }
+include_dir = "0.6.1"

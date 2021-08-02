@@ -7,6 +7,15 @@ GET http://localhost:3000/json
 ### user json
 GET http://localhost:3000/user/2
 
+### Save user
+POST http://localhost:3000/user/save
+Content-Type: application/json
+
+{
+  "id": 111,
+  "name": "Tevita Solares"
+}
+
 ### static html
 GET http://localhost:3000/index.html
 
