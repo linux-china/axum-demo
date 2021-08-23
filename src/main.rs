@@ -9,12 +9,7 @@ use std::convert::Infallible;
 async fn main() {
     // static assets handler
     let static_handle = service::get(ServeDir::new("./static").append_index_html_on_directories(true))
-        .handle_error(|error: std::io::Error| {
-            Ok::<_, Infallible>((
-                StatusCode::INTERNAL_SERVER_ERROR,
-                format!("Unhandled internal error: {}", error),
-            ))
-        });
+        .handle_error(handle_io_error);
 
     let app = Router::new().nest("/", axum::service::get(static_handle))
         .route("/", get(index))
@@ -31,6 +26,13 @@ async fn main() {
         .serve(app.into_make_service())
         .await
         .unwrap();
+}
+
+fn handle_io_error(error: std::io::Error) -> Result<impl IntoResponse, Infallible> {
+    Ok((
+        StatusCode::INTERNAL_SERVER_ERROR,
+        format!("Unhandled error: {}", error),
+    ))
 }
 
 async fn index() -> Html<&'static str> {
