@@ -8,8 +8,7 @@ use std::convert::Infallible;
 #[tokio::main]
 async fn main() {
     // static assets handler
-    let static_handle = service::get(ServeDir::new("./static"))
-        .append_index_html_on_directories(true)
+    let static_handle = service::get(ServeDir::new("./static").append_index_html_on_directories(true))
         .handle_error(|error: std::io::Error| {
             Ok::<_, Infallible>((
                 StatusCode::INTERNAL_SERVER_ERROR,
