@@ -8,11 +8,12 @@ use std::convert::Infallible;
 #[tokio::main]
 async fn main() {
     // static assets handler
-    let static_handle = service::get(ServeDir::new("./static").append_index_html_on_directories(true))
+    let assets_handle = service::get(ServeDir::new("./static/assets").append_index_html_on_directories(true))
         .handle_error(handle_io_error);
 
-    let app = Router::new().nest("/", axum::service::get(static_handle))
+    let app = Router::new().nest("/assets", axum::service::get(assets_handle))
         .route("/", get(index))
+        .route("/index.html", get(index))
         .route("/html", get(html))
         .route("/login", post(login))
         .route("/user/:id", get(user))
