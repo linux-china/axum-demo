@@ -43,6 +43,7 @@ http: a general purpose library of common HTTP types, for examples `http::{Reque
 * json output: struct and json!() macro
 * query:  `/search?q=java`
 * Path variables/params `/user/:id`
+* 404 handler:  Separate net("/") and handler_404() 
 
 # Docker support
 Refer from  [Packaging a Rust web service using Docker](https://blog.logrocket.com/packaging-a-rust-web-service-using-docker/) 
