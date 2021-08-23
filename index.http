@@ -31,3 +31,6 @@ GET http://localhost:3000/index.html
 ### static css
 GET http://localhost:3000/assets/demo.css
 
+### 404 handler
+GET http://localhost:3000/demo404
+
