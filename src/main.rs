@@ -8,12 +8,14 @@ use std::convert::Infallible;
 #[tokio::main]
 async fn main() {
     // static assets handler
-    let static_handle = service::get(ServeDir::new("./static")).handle_error(|error: std::io::Error| {
-        Ok::<_, Infallible>((
-            StatusCode::INTERNAL_SERVER_ERROR,
-            format!("Unhandled internal error: {}", error),
-        ))
-    });
+    let static_handle = service::get(ServeDir::new("./static"))
+        .append_index_html_on_directories(true)
+        .handle_error(|error: std::io::Error| {
+            Ok::<_, Infallible>((
+                StatusCode::INTERNAL_SERVER_ERROR,
+                format!("Unhandled internal error: {}", error),
+            ))
+        });
 
     let app = Router::new().nest("/", axum::service::get(static_handle))
         .route("/", get(index))
