@@ -1,19 +1,21 @@
-use axum::prelude::*;
+use axum::{extract, service, handler::{get, post}, response::{Html, Json}, Router};
 use http::StatusCode;
-use axum::response::{Html, Json};
-use axum::{extract::{UrlParams}, routing::nest, service::ServiceExt};
 use serde_json::{json, Value};
 use tower_http::{services::ServeDir};
 use serde::{Deserialize, Serialize};
+use std::convert::Infallible;
 
 #[tokio::main]
 async fn main() {
     // static assets handler
-    let static_handle = ServeDir::new("./static").handle_error(|error: std::io::Error| {
-        Ok::<_, std::convert::Infallible>((StatusCode::INTERNAL_SERVER_ERROR, format!("Unhandled internal error: {}", error)))
+    let static_handle = service::get(ServeDir::new("./static")).handle_error(|error: std::io::Error| {
+        Ok::<_, Infallible>((
+            StatusCode::INTERNAL_SERVER_ERROR,
+            format!("Unhandled internal error: {}", error),
+        ))
     });
 
-    let app = nest("/", axum::service::get(static_handle))
+    let app = Router::new().nest("/", axum::service::get(static_handle))
         .route("/", get(index))
         .route("/html", get(html))
         .route("/login", post(login))
@@ -65,7 +67,7 @@ async fn json() -> Json<Value> {
     Json(json!({ "data": 42 }))
 }
 
-async fn user(UrlParams((id, )): UrlParams<(u32, )>) -> Json<Person> {
+async fn user(extract::Path((id, )): extract::Path<(u32, )>) -> Json<Person> {
     Json(Person { id, name: "linux_china".to_string() })
 }
 
