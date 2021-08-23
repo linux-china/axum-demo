@@ -1,4 +1,4 @@
-use axum::{extract, service, handler::{get, post}, response::{Html, Json}, Router};
+use axum::{extract, service, handler::{get, post, Handler}, response::{Html, Json, IntoResponse}, Router};
 use http::StatusCode;
 use serde_json::{json, Value};
 use tower_http::{services::ServeDir};
@@ -24,6 +24,7 @@ async fn main() {
         .route("/search", get(search))
         .route("/json", get(json));
 
+    let app = app.or(handler_404.into_service());
     println!("Http Server started on 0.0.0.0:3000");
     hyper::Server::bind(&"0.0.0.0:3000".parse().unwrap())
         .serve(app.into_make_service())
@@ -81,5 +82,9 @@ async fn search(extract::Query(query): extract::Query<SearchQuery>) -> Html<Stri
     let q = query.q.unwrap_or("".to_string());
     print!("q: {}, page: {}", q, query.page.unwrap_or(0));
     Html(format!("<h1>Hello, {}!</h1>", q))
+}
+
+async fn handler_404() -> impl IntoResponse {
+    (StatusCode::NOT_FOUND, "nothing to see here")
 }
 
