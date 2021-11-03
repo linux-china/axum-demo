@@ -1,4 +1,4 @@
-use axum::{extract, service, handler::{get, post, Handler}, response::{Html, Json, IntoResponse}, Router};
+use axum::{extract, error_handling::HandleErrorExt, routing::{get, post, service_method_routing as service}, handler::Handler, response::{Html, Json, IntoResponse}, Router};
 use http::StatusCode;
 use serde_json::{json, Value};
 use tower_http::{services::ServeDir};
@@ -11,7 +11,7 @@ async fn main() {
     let assets_handle = service::get(ServeDir::new("./static/assets").append_index_html_on_directories(true))
         .handle_error(handle_io_error);
 
-    let app = Router::new().nest("/assets", axum::service::get(assets_handle))
+    let app = Router::new().nest("/assets", service::get(assets_handle))
         .route("/", get(index))
         .route("/index.html", get(index))
         .route("/html", get(html))
@@ -21,7 +21,7 @@ async fn main() {
         .route("/search", get(search))
         .route("/json", get(json));
 
-    let app = app.or(handler_404.into_service());
+    let app = app.fallback(handler_404.into_service());
     println!("Http Server started on 0.0.0.0:3000");
     hyper::Server::bind(&"0.0.0.0:3000".parse().unwrap())
         .serve(app.into_make_service())
