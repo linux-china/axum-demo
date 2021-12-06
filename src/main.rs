@@ -1,17 +1,20 @@
-use axum::{extract, error_handling::HandleErrorExt, routing::{get, post, service_method_routing as service}, handler::Handler, response::{Html, Json, IntoResponse}, Router};
+use axum::{extract, routing::{get, post, get_service}, handler::Handler, response::{Html, Json, IntoResponse}, Router};
 use http::StatusCode;
 use serde_json::{json, Value};
 use tower_http::{services::ServeDir};
 use serde::{Deserialize, Serialize};
-use std::convert::Infallible;
 
 #[tokio::main]
 async fn main() {
     // static assets handler
-    let assets_handle = service::get(ServeDir::new("./static/assets").append_index_html_on_directories(true))
-        .handle_error(handle_io_error);
+    let assets_handle = get_service(ServeDir::new("./static/assets")).handle_error(|error: std::io::Error| async move {
+        (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            format!("Unhandled internal error: {}", error),
+        )
+    });
 
-    let app = Router::new().nest("/assets", service::get(assets_handle))
+    let app = Router::new().nest("/assets", assets_handle)
         .route("/", get(index))
         .route("/index.html", get(index))
         .route("/html", get(html))
@@ -27,13 +30,6 @@ async fn main() {
         .serve(app.into_make_service())
         .await
         .unwrap();
-}
-
-fn handle_io_error(error: std::io::Error) -> Result<impl IntoResponse, Infallible> {
-    Ok((
-        StatusCode::INTERNAL_SERVER_ERROR,
-        format!("Unhandled error: {}", error),
-    ))
 }
 
 async fn index() -> Html<&'static str> {
