@@ -1,5 +1,5 @@
 # Build Stage
-FROM rust:1.54.0 as builder
+FROM rust:1.61.0 as builder
 
 RUN USER=root cargo new --bin axum-demo
 WORKDIR ./axum-demo
