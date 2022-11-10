@@ -1,4 +1,4 @@
-use axum::{extract, routing::{get, post, get_service}, handler::Handler, response::{Html, Json, IntoResponse}, Router};
+use axum::{extract, routing::{get, post, get_service}, response::{Html, Json, IntoResponse}, Router};
 use http::StatusCode;
 use serde_json::{json, Value};
 use tower_http::{services::ServeDir};
@@ -7,14 +7,9 @@ use serde::{Deserialize, Serialize};
 #[tokio::main]
 async fn main() {
     // static assets handler
-    let assets_handle = get_service(ServeDir::new("./static/assets")).handle_error(|error: std::io::Error| async move {
-        (
-            StatusCode::INTERNAL_SERVER_ERROR,
-            format!("Unhandled internal error: {}", error),
-        )
-    });
+    let assets_handle = get_service(ServeDir::new("./static/assets")).handle_error(handle_error);
 
-    let app = Router::new().nest("/assets", assets_handle)
+    let app = Router::new().nest_service("/assets", assets_handle)
         .route("/", get(index))
         .route("/index.html", get(index))
         .route("/html", get(html))
@@ -24,7 +19,7 @@ async fn main() {
         .route("/search", get(search))
         .route("/json", get(json));
 
-    let app = app.fallback(handler_404.into_service());
+    let app = app.fallback(handler_404);
     println!("Http Server started on 0.0.0.0:3000");
     hyper::Server::bind(&"0.0.0.0:3000".parse().unwrap())
         .serve(app.into_make_service())
@@ -86,5 +81,9 @@ async fn search(extract::Query(query): extract::Query<SearchQuery>) -> Html<Stri
 
 async fn handler_404() -> impl IntoResponse {
     (StatusCode::NOT_FOUND, "nothing to see here")
+}
+
+async fn handle_error(_err: std::io::Error) -> impl IntoResponse {
+    (StatusCode::INTERNAL_SERVER_ERROR, "Something went wrong...")
 }
 
