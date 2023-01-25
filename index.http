@@ -11,7 +11,10 @@ Content-Type: application/x-www-form-urlencoded
 username=leijuan&password=123456
 
 ### user json
-GET http://localhost:3000/user/2
+GET http://localhost:3000/user/1
+
+### problem detail test
+GET http://localhost:3000/user/0
 
 ### Save user
 POST http://localhost:3000/user/save
