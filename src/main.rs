@@ -1,4 +1,5 @@
 use axum::{extract, routing::{get, post, get_service}, response::{Html, Json, IntoResponse}, Router};
+use axum::response::Response;
 use http::StatusCode;
 use serde_json::{json, Value};
 use tower_http::{services::ServeDir};
@@ -8,6 +9,7 @@ use serde::{Deserialize, Serialize};
 async fn main() {
     // static assets handler
     let assets_handle = get_service(ServeDir::new("./static/assets")).handle_error(handle_error);
+
 
     let app = Router::new().nest_service("/assets", assets_handle)
         .route("/", get(index))
@@ -59,12 +61,43 @@ pub struct Person {
     pub name: String,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ProblemDetail {
+    pub status: u16,
+    pub title: String,
+    #[serde(rename = "type")]
+    pub error_type: String,
+    pub detail: String,
+    pub instance: String,
+}
+
+impl IntoResponse for ProblemDetail {
+    fn into_response(self) -> Response {
+        let body: String = json!(self).to_string();
+        Response::builder().status(self.status)
+            .header("Content-Type", "application/json")
+            .body(body)
+            .unwrap()
+            .into_response()
+    }
+}
+
 async fn json() -> Json<Value> {
     Json(json!({ "data": 42 }))
 }
 
-async fn user(extract::Path((id, )): extract::Path<(u32, )>) -> Json<Person> {
-    Json(Person { id, name: "linux_china".to_string() })
+async fn user(extract::Path((id, )): extract::Path<(u32, )>) -> Result<Json<Person>, ProblemDetail> {
+    if id == 0 {
+        Err(ProblemDetail {
+            status: 500,
+            title: "user id not correct".to_owned(),
+            error_type: "illegal data".to_owned(),
+            detail: "0 as user id not allowed".to_owned(),
+            instance: format!("/user/{}", id),
+        })
+    } else {
+        Ok(Json(Person { id, name: "linux_china".to_string() }))
+    }
 }
 
 #[derive(Deserialize)]
@@ -78,6 +111,7 @@ async fn search(extract::Query(query): extract::Query<SearchQuery>) -> Html<Stri
     print!("q: {}, page: {}", q, query.page.unwrap_or(0));
     Html(format!("<h1>Hello, {}!</h1>", q))
 }
+
 
 async fn handler_404() -> impl IntoResponse {
     (StatusCode::NOT_FOUND, "nothing to see here")
