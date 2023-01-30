@@ -64,6 +64,7 @@ Or you can refer https://kerkour.com/blog/rust-small-docker-image/
 * How to use “Type safe routing” of axum: https://medium.com/mixi-developers/how-to-use-type-safe-routing-of-axum-c06c1b1b1ab
 * How to deploy a Rust Web Server to Heroku using Axum, Docker, and Github Actions: https://fbzga.medium.com/how-to-deploy-a-rust-web-server-to-heroku-using-axum-docker-and-github-actions-6cddb442ea7e
 * Deploy a Rust web server to Heroku with axum, Tokio, and GitHub Actions: https://blog.logrocket.com/deploy-rust-web-server-heroku-axum-tokio-github-actions/
+* Learning by doing: An HTTP API with Rust: https://blog.frankel.ch/http-api-rust/
 * Using Axum Framework To Create REST API: 
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-1-7d434d2c5de4
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-ii-4eba129c196b
