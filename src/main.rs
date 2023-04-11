@@ -7,11 +7,8 @@ use serde::{Deserialize, Serialize};
 
 #[tokio::main]
 async fn main() {
-    // static assets handler
-    let assets_handle = get_service(ServeDir::new("./static/assets")).handle_error(handle_error);
 
-
-    let app = Router::new().nest_service("/assets", assets_handle)
+    let app = Router::new().nest_service("/assets", ServeDir::new("./static/assets"))
         .route("/", get(index))
         .route("/index.html", get(index))
         .route("/html", get(html))
