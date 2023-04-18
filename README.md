@@ -59,6 +59,7 @@ Or you can refer https://kerkour.com/blog/rust-small-docker-image/
 
 * Axum home: https://github.com/tokio-rs/axum
 * Axum examples: https://github.com/tokio-rs/axum/tree/main/examples
+* Introduction to Axum: https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS
 * Announcing Axum: https://tokio.rs/blog/2021-07-announcing-axum
 * Using Rust with Axum for error handling: https://blog.logrocket.com/rust-axum-error-handling/
 * How to use “Type safe routing” of axum: https://medium.com/mixi-developers/how-to-use-type-safe-routing-of-axum-c06c1b1b1ab
