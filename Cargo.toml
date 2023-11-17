@@ -20,6 +20,12 @@ tower-http = { version = "0.4", features = ["full"] }
 axum = { version = "0.6", features = ["default", "ws", "multipart"] }
 include_dir = "0.7"
 
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
 [profile.release]
 strip = true
 lto = true
