@@ -1,4 +1,4 @@
-use axum::{extract, routing::{get, post, get_service}, response::{Html, Json, IntoResponse}, Router};
+use axum::{extract, routing::{get, post}, response::{Html, Json, IntoResponse}, Router};
 use axum::response::Response;
 use http::StatusCode;
 use serde_json::{json, Value};
@@ -7,7 +7,6 @@ use serde::{Deserialize, Serialize};
 
 #[tokio::main]
 async fn main() {
-
     let app = Router::new().nest_service("/assets", ServeDir::new("./static/assets"))
         .route("/", get(index))
         .route("/index.html", get(index))
@@ -20,8 +19,8 @@ async fn main() {
 
     let app = app.fallback(handler_404);
     println!("Http Server started on 0.0.0.0:3000");
-    hyper::Server::bind(&"0.0.0.0:3000".parse().unwrap())
-        .serve(app.into_make_service())
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    axum::serve(listener, app)
         .await
         .unwrap();
 }
