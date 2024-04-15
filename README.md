@@ -69,6 +69,7 @@ Or you can refer https://kerkour.com/blog/rust-small-docker-image/
 * Building a Proxy Server in Rust with Axum: https://medium.com/dev-genius/building-a-proxy-server-in-rust-with-axum-4d1e0215a6b0
 * Writing a Rest HTTP Service with Axum: https://docs.shuttle.rs/tutorials/rest-http-service-with-axum
 * API Evolution in axum: https://www.youtube.com/watch?v=w1atdqNsA80
+* Bundle frontend into axum binary using include_dir: https://dev.to/konstantin/bundle-frontend-with-axum-build-using-includedir-g8i
 * Using Axum Framework To Create REST API: 
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-1-7d434d2c5de4
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-ii-4eba129c196b
