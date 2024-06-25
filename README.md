@@ -55,6 +55,10 @@ docker run -p 3000:3000 axum-demo
 
 Or you can refer https://kerkour.com/blog/rust-small-docker-image/
 
+# Axum Extension
+
+* axum-htmx:  https://github.com/robertwayne/axum-htmx
+
 # References
 
 * Axum home: https://github.com/tokio-rs/axum
