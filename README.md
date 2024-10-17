@@ -65,6 +65,7 @@ Community Projects: https://github.com/tokio-rs/axum/blob/main/ECOSYSTEM.md
 
 * Axum home: https://github.com/tokio-rs/axum
 * Axum examples: https://github.com/tokio-rs/axum/tree/main/examples
+* Replacing nginx with axum: https://felix-knorr.net/posts/2024-10-13-replacing-nginx-with-axum.html
 * Rust Web Programming - Third Edition: https://learning.oreilly.com/library/view/-/9781835887769/
 * Getting Started with Axum - Rust's Most Popular Web Framework: https://www.shuttle.rs/blog/2023/12/06/using-axum-rust
 * Introduction to Axum: https://www.youtube.com/playlist?list=PLrmY5pVcnuE-_CP7XZ_44HN-mDrLQV4nS
