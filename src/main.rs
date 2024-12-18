@@ -1,18 +1,24 @@
-use axum::{extract, routing::{get, post}, response::{Html, Json, IntoResponse}, Router};
 use axum::response::Response;
+use axum::{
+    extract,
+    response::{Html, IntoResponse, Json},
+    routing::{get, post},
+    Router,
+};
 use http::StatusCode;
-use serde_json::{json, Value};
-use tower_http::{services::ServeDir};
 use serde::{Deserialize, Serialize};
+use serde_json::{json, Value};
+use tower_http::services::ServeDir;
 
 #[tokio::main]
 async fn main() {
-    let app = Router::new().nest_service("/assets", ServeDir::new("./static/assets"))
+    let app = Router::new()
+        .nest_service("/assets", ServeDir::new("./static/assets"))
         .route("/", get(index))
         .route("/index.html", get(index))
         .route("/html", get(html))
         .route("/login", post(login))
-        .route("/user/:id", get(user))
+        .route("/user/{id}", get(user))
         .route("/user/save", post(save_user))
         .route("/search", get(search))
         .route("/json", get(json));
@@ -20,9 +26,7 @@ async fn main() {
     let app = app.fallback(handler_404);
     println!("Http Server started on 0.0.0.0:3000");
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app)
-        .await
-        .unwrap();
+    axum::serve(listener, app).await.unwrap();
 }
 
 async fn index() -> Html<&'static str> {
@@ -38,7 +42,6 @@ async fn save_user(extract::Json(user): extract::Json<Person>) -> Json<Value> {
     println!("name: {}", user.name);
     Json(json!(true))
 }
-
 
 #[derive(Deserialize)]
 struct LoginForm {
@@ -70,7 +73,8 @@ pub struct ProblemDetail {
 impl IntoResponse for ProblemDetail {
     fn into_response(self) -> Response {
         let body: String = json!(self).to_string();
-        Response::builder().status(self.status)
+        Response::builder()
+            .status(self.status)
             .header("Content-Type", "application/json")
             .body(body)
             .unwrap()
@@ -82,7 +86,7 @@ async fn json() -> Json<Value> {
     Json(json!({ "data": 42 }))
 }
 
-async fn user(extract::Path((id, )): extract::Path<(u32, )>) -> Result<Json<Person>, ProblemDetail> {
+async fn user(extract::Path((id,)): extract::Path<(u32,)>) -> Result<Json<Person>, ProblemDetail> {
     if id == 0 {
         Err(ProblemDetail {
             status: 500,
@@ -92,7 +96,10 @@ async fn user(extract::Path((id, )): extract::Path<(u32, )>) -> Result<Json<Pers
             instance: format!("/user/{}", id),
         })
     } else {
-        Ok(Json(Person { id, name: "linux_china".to_string() }))
+        Ok(Json(Person {
+            id,
+            name: "linux_china".to_string(),
+        }))
     }
 }
 
@@ -108,7 +115,6 @@ async fn search(extract::Query(query): extract::Query<SearchQuery>) -> Html<Stri
     Html(format!("<h1>Hello, {}!</h1>", q))
 }
 
-
 async fn handler_404() -> impl IntoResponse {
     (StatusCode::NOT_FOUND, "nothing to see here")
 }
@@ -116,4 +122,3 @@ async fn handler_404() -> impl IntoResponse {
 async fn handle_error(_err: std::io::Error) -> impl IntoResponse {
     (StatusCode::INTERNAL_SERVER_ERROR, "Something went wrong...")
 }
-
