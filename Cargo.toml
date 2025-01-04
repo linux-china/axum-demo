@@ -14,11 +14,11 @@ tokio-util = "0.7"
 serde = { version = "1.0", features = ["derive"] }
 async-trait = "0.1"
 serde_json = "1.0"
-hyper = { version = "1", features = ["full"] }
+hyper = { version = "1.5", features = ["full"] }
 tower = { version = "0.5", features = ["full"] }
 tower-http = { version = "0.6", features = ["full"] }
-axum = { version = "0.8.0-rc.1", features = ["default", "ws", "multipart"] }
-axum-extra = "0.10.0-rc.1"
+axum = { version = "0.8", features = ["default", "ws", "multipart"] }
+axum-extra = "0.10"
 include_dir = "0.7"
 axum-ctx = "0.4"
 
