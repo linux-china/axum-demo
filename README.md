@@ -24,7 +24,7 @@ tower-http: a collection of HTTP specific middleware and utilities built with To
 * Compression and Decompression: Automatically compress or decompress response bodies. This goes really well with serving static files using ServeDir.
 * FollowRedirect: Automatically follow redirection responses.
 
-http: a general purpose library of common HTTP types, for examples `http::{Request, Response, StatusCode}` 
+http: a general purpose library of common HTTP types, for examples `http::{Request, Response, StatusCode}`
 
 # Vocabulary
 
@@ -43,10 +43,10 @@ http: a general purpose library of common HTTP types, for examples `http::{Reque
 * json output: struct and json!() macro
 * query:  `/search?q=java`
 * Path variables/params `/user/:id`
-* 404 handler:  Separate net("/") and handler_404() 
+* 404 handler:  Separate net("/") and handler_404()
 
 # Docker support
-Refer from  [Packaging a Rust web service using Docker](https://blog.logrocket.com/packaging-a-rust-web-service-using-docker/) 
+Refer from  [Packaging a Rust web service using Docker](https://blog.logrocket.com/packaging-a-rust-web-service-using-docker/)
 
 ```bash
 docker build -t axum-demo .
@@ -81,7 +81,9 @@ Community Projects: https://github.com/tokio-rs/axum/blob/main/ECOSYSTEM.md
 * API Evolution in axum: https://www.youtube.com/watch?v=w1atdqNsA80
 * Bundle frontend into axum binary using include_dir: https://dev.to/konstantin/bundle-frontend-with-axum-build-using-includedir-g8i
 * Extracting Generic Substates in Axum: https://mhu.dev/posts/2024-07-02-axum-generic-substate/
-* Using Axum Framework To Create REST API: 
+* Authentication with Axum: https://mattrighetti.com/2025/05/03/authentication-with-axum
+* Axum: Optimizing web API design with the Builder Pattern - https://medium.com/@adefemiadeoye/axum-optimizing-web-api-design-with-the-builder-pattern-08aa8e18a599
+* Rust-Powered APIs with Axum: A Complete 2025 Guide: https://medium.com/rustaceans/rust-powered-apis-with-axum-a-complete-2025-guide-213a28bb44ac
+* Using Axum Framework To Create REST API:
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-1-7d434d2c5de4
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-ii-4eba129c196b
-
