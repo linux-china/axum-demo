@@ -84,6 +84,7 @@ Community Projects: https://github.com/tokio-rs/axum/blob/main/ECOSYSTEM.md
 * Authentication with Axum: https://mattrighetti.com/2025/05/03/authentication-with-axum
 * Axum: Optimizing web API design with the Builder Pattern - https://medium.com/@adefemiadeoye/axum-optimizing-web-api-design-with-the-builder-pattern-08aa8e18a599
 * Rust-Powered APIs with Axum: A Complete 2025 Guide: https://medium.com/rustaceans/rust-powered-apis-with-axum-a-complete-2025-guide-213a28bb44ac
+* Axum Backend Series: Docker, Database and Connection Pooling: https://blog.0xshadow.dev/posts/backend-engineering-with-axum/axum-database-setup-using-docker/
 * Using Axum Framework To Create REST API:
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-1-7d434d2c5de4
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-ii-4eba129c196b
