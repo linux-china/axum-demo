@@ -88,6 +88,7 @@ Community Projects: https://github.com/tokio-rs/axum/blob/main/ECOSYSTEM.md
 * Axum Backend Series: Models, Migration, DTOs and Repository Pattern: https://blog.0xshadow.dev/posts/backend-engineering-with-axum/axum-model-setup/
 * Axum Backend Series: Implement JWT Access Token: https://blog.0xshadow.dev/posts/backend-engineering-with-axum/axum-jwt-access-token/
 * Creating a REST API in Rust: https://arshsharma.com/posts/rust-api/
+* axum-gate: Fully customizable role based JWT cookie/bearer auth for axum https://github.com/emirror-de/axum-gate
 * Using Axum Framework To Create REST API:
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-1-7d434d2c5de4
    - https://medium.com/intelliconnect-engineering/using-axum-framework-to-create-rest-api-part-ii-4eba129c196b
